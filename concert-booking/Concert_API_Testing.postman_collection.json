@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+		"name": "Concert Booking Platform API",
+		"description": "API Collection for Concert Booking Platform.\n\nVariables:\n- {{baseUrl}}: http://localhost:8080/api\n- {{accessToken}}: JWT Token",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0. Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"admin123\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+					}
+				},
+				{
+					"name": "Introspect Token",
+					"request": {
+						"method": "POST",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"{{accessToken}}\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/auth/introspect", "host": ["{{baseUrl}}"], "path": ["auth", "introspect"] }
+					}
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"{{accessToken}}\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/auth/refresh", "host": ["{{baseUrl}}"], "path": ["auth", "refresh"] }
+					}
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"{{accessToken}}\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/auth/logout", "host": ["{{baseUrl}}"], "path": ["auth", "logout"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "1. User Module",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@gmail.com\",\n    \"password\": \"password123\",\n    \"name\": \"Normal User\",\n    \"phone\": \"0987654321\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/users", "host": ["{{baseUrl}}"], "path": ["users"] }
+					}
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/users", "host": ["{{baseUrl}}"], "path": ["users"] }
+					}
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Name\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/users/{{userId}}", "host": ["{{baseUrl}}"], "path": ["users", "{{userId}}"] }
+					}
+				},
+				{
+					"name": "Get User Info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/users/myInfo", "host": ["{{baseUrl}}"], "path": ["users", "myInfo"] }
+					}
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/users/{{userId}}", "host": ["{{baseUrl}}"], "path": ["users", "{{userId}}"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "2. RBAC Module",
+			"item": [
+				{
+					"name": "Permission",
+					"item": [
+						{
+							"name": "Create Permission",
+							"request": {
+								"method": "POST",
+								"header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"APPROVE_BOOKING\",\n    \"description\": \"Permission to approve booking\"\n}",
+									"options": { "raw": { "language": "json" } }
+								},
+								"url": { "raw": "{{baseUrl}}/permissions", "host": ["{{baseUrl}}"], "path": ["permissions"] }
+							}
+						},
+						{
+							"name": "Get All Permissions",
+							"request": {
+								"method": "GET",
+								"header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+								"url": { "raw": "{{baseUrl}}/permissions", "host": ["{{baseUrl}}"], "path": ["permissions"] }
+							}
+						},
+						{
+							"name": "Delete Permission",
+							"request": {
+								"method": "DELETE",
+								"header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+								"url": { "raw": "{{baseUrl}}/permissions/{{permissionId}}", "host": ["{{baseUrl}}"], "path": ["permissions", "{{permissionId}}"] }
+							}
+						}
+					]
+				},
+				{
+					"name": "Role",
+					"item": [
+						{
+							"name": "Create Role",
+							"request": {
+								"method": "POST",
+								"header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"STAFF\",\n    \"description\": \"Staff Role\",\n    \"permissions\": [\"APPROVE_BOOKING\"]\n}",
+									"options": { "raw": { "language": "json" } }
+								},
+								"url": { "raw": "{{baseUrl}}/roles", "host": ["{{baseUrl}}"], "path": ["roles"] }
+							}
+						},
+						{
+							"name": "Get All Roles",
+							"request": {
+								"method": "GET",
+								"header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+								"url": { "raw": "{{baseUrl}}/roles", "host": ["{{baseUrl}}"], "path": ["roles"] }
+							}
+						},
+						{
+							"name": "Delete Role",
+							"request": {
+								"method": "DELETE",
+								"header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+								"url": { "raw": "{{baseUrl}}/roles/{{roleName}}", "host": ["{{baseUrl}}"], "path": ["roles", "{{roleName}}"] }
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "3. Concert Module",
+			"item": [
+				{
+					"name": "Create Concert",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Blackpink Tour 2026\",\n    \"description\": \"Born Pink Return\",\n    \"duration\": 120,\n    \"status\": \"COMING_SOON\",\n    \"posterUrl\": \"http://image.com/poster.jpg\",\n    \"openDate\": \"2026-05-20\",\n    \"startTime\": \"2026-06-15T19:00:00\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/concerts", "host": ["{{baseUrl}}"], "path": ["concerts"] }
+					}
+				},
+				{
+					"name": "Get All Concerts",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "{{baseUrl}}/concerts", "host": ["{{baseUrl}}"], "path": ["concerts"] }
+					}
+				},
+				{
+					"name": "Get Concert by ID",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "{{baseUrl}}/concerts/{{concertId}}", "host": ["{{baseUrl}}"], "path": ["concerts", "{{concertId}}"] }
+					}
+				},
+				{
+					"name": "Update Concert",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Blackpink Tour 2026 Updated\",\n    \"description\": \"Updated desc\",\n    \"duration\": 150,\n    \"status\": \"NOW_SHOWING\",\n    \"openDate\": \"2026-05-20\",\n    \"startTime\": \"2026-06-15T20:00:00\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/concerts/{{concertId}}", "host": ["{{baseUrl}}"], "path": ["concerts", "{{concertId}}"] }
+					}
+				},
+				{
+					"name": "Delete Concert",
+					"request": {
+						"method": "DELETE",
+						"header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+						"url": { "raw": "{{baseUrl}}/concerts/{{concertId}}", "host": ["{{baseUrl}}"], "path": ["concerts", "{{concertId}}"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "4. Ticket Category Module",
+			"item": [
+				{
+					"name": "Create Ticket Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"concertId\": \"{{concertId}}\",\n    \"name\": \"VIP\",\n    \"price\": 5000000,\n    \"totalQuantity\": 100,\n    \"status\": \"AVAILABLE\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/tickets", "host": ["{{baseUrl}}"], "path": ["tickets"] }
+					}
+				},
+				{
+					"name": "Get Ticket Categories by Concert",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "{{baseUrl}}/tickets/concert/{{concertId}}", "host": ["{{baseUrl}}"], "path": ["tickets", "concert", "{{concertId}}"] }
+					}
+				},
+				{
+					"name": "Update Ticket Category",
+					"request": {
+						"method": "PUT",
+						"header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"concertId\": \"{{concertId}}\",\n    \"name\": \"VIP Updated\",\n    \"price\": 6000000,\n    \"totalQuantity\": 150,\n    \"status\": \"AVAILABLE\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/tickets/{{ticketCategoryId}}", "host": ["{{baseUrl}}"], "path": ["tickets", "{{ticketCategoryId}}"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "5. Booking Module",
+			"item": [
+				{
+					"name": "Create Booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"concertId\": \"{{concertId}}\",\n    \"ticketIds\": [\"{{ticketId1}}\", \"{{ticketId2}}\"],\n    \"voucherCode\": \"GiamGia10\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] }
+					}
+				},
+				{
+					"name": "Get My Bookings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/bookings/my-bookings", "host": ["{{baseUrl}}"], "path": ["bookings", "my-bookings"] }
+					}
+				},
+				{
+					"name": "Get All Bookings (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+						"url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] }
+					}
+				},
+				{
+					"name": "Confirm Booking",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/bookings/{{bookingId}}/confirm", "host": ["{{baseUrl}}"], "path": ["bookings", "{{bookingId}}", "confirm"] }
+					}
+				},
+				{
+					"name": "Scan QR Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"{{qrToken}}\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/bookings/scanQr", "host": ["{{baseUrl}}"], "path": ["bookings", "scanQr"] }
+					}
+				},
+				{
+					"name": "Delete/Cancel Booking",
+					"request": {
+						"method": "DELETE",
+						"header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+						"url": { "raw": "{{baseUrl}}/bookings/{{bookingId}}", "host": ["{{baseUrl}}"], "path": ["bookings", "{{bookingId}}"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "6. Voucher Module",
+			"item": [
+				{
+					"name": "Create Voucher",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": \"GiamGia10\",\n    \"concertId\": \"{{concertId}}\",\n    \"name\": \"Summer Discount\",\n    \"description\": \"10% OFF\",\n    \"discountType\": \"FIXED_AMOUNT\",\n    \"discountValue\": 100000,\n    \"minOrderAmount\": 1000000,\n    \"maxDiscountAmount\": 100000,\n    \"usageLimitPerUser\": 1,\n    \"totalQuantity\": 100,\n    \"startDate\": \"2026-05-17T00:00:00\",\n    \"endDate\": \"2026-12-31T23:59:59\",\n    \"status\": \"ACTIVE\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/vouchers", "host": ["{{baseUrl}}"], "path": ["vouchers"] }
+					}
+				},
+				{
+					"name": "Get All Vouchers",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "{{baseUrl}}/vouchers", "host": ["{{baseUrl}}"], "path": ["vouchers"] }
+					}
+				},
+				{
+					"name": "Get Voucher by ID",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "{{baseUrl}}/vouchers/{{voucherId}}", "host": ["{{baseUrl}}"], "path": ["vouchers", "{{voucherId}}"] }
+					}
+				},
+				{
+					"name": "Get Vouchers by Concert",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "{{baseUrl}}/vouchers/concerts/{{concertId}}", "host": ["{{baseUrl}}"], "path": ["vouchers", "concerts", "{{concertId}}"] }
+					}
+				},
+				{
+					"name": "Validate Voucher",
+					"request": {
+						"method": "POST",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": \"GiamGia10\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/vouchers/validate", "host": ["{{baseUrl}}"], "path": ["vouchers", "validate"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "7. Payment Module",
+			"item": [
+				{
+					"name": "Checkout VNPAY",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"concertId\": \"{{concertId}}\",\n    \"ticketIds\": [\"{{ticketId}}\"],\n    \"voucherCode\": \"\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": { "raw": "{{baseUrl}}/payment/checkout", "host": ["{{baseUrl}}"], "path": ["payment", "checkout"] }
+					}
+				},
+				{
+					"name": "VNPAY Return (Callback)",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "{{baseUrl}}/payment/vnpay-return", "host": ["{{baseUrl}}"], "path": ["payment", "vnpay-return"] }
+					}
+				},
+				{
+					"name": "VNPAY IPN",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "{{baseUrl}}/payment/vnpay-ipn", "host": ["{{baseUrl}}"], "path": ["payment", "vnpay-ipn"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "8. Utilities",
+			"item": [
+				{
+					"name": "Upload to Cloudinary",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{ "key": "file", "type": "file", "src": [] }
+							]
+						},
+						"url": { "raw": "{{baseUrl}}/upload", "host": ["{{baseUrl}}"], "path": ["upload"] }
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{ "key": "baseUrl", "value": "http://localhost:8080/api" },
+		{ "key": "accessToken", "value": "" },
+		{ "key": "userId", "value": "" },
+		{ "key": "concertId", "value": "" },
+		{ "key": "ticketId", "value": "" },
+		{ "key": "ticketId1", "value": "" },
+		{ "key": "ticketId2", "value": "" },
+		{ "key": "bookingId", "value": "" },
+		{ "key": "qrToken", "value": "" },
+		{ "key": "voucherId", "value": "" }
+	]
+}

@@ -1,0 +1,1 @@
+export { AdminPermissions } from '../AdminPermissions';
