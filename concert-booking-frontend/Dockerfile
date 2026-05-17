@@ -1,30 +1,41 @@
-# Stage 1: Build stage
+# =========================
+# Stage 1: Build React app
+# =========================
 FROM node:20-alpine AS build
+
 WORKDIR /app
 
-# Accept build arguments and set environment variables
-ARG REACT_APP_API_BASE_URL=/api
-ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
+# Nhận biến môi trường API URL lúc build
+ARG REACT_APP_API_BASE_URL
+ENV REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
 
-# 1. Cache dependencies
+# Cài dependencies
 COPY package.json package-lock.json* ./
 RUN npm install
 
-# 2. Copy source code và build
+# Copy source code
 COPY . .
+
+# Build frontend
 RUN npm run build
 
-# Stage 2: Runtime stage
+
+# =========================
+# Stage 2: Serve with Nginx
+# =========================
 FROM nginx:alpine
 
-# Thiết lập múi giờ Việt Nam
+# Thiết lập timezone Việt Nam
 ENV TZ=Asia/Ho_Chi_Minh
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Copy file build từ stage build sang
+# Xóa config mặc định của Nginx
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy file build React sang Nginx
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Copy cấu hình nginx tùy chỉnh
+# Copy nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80

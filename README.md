@@ -1,10 +1,9 @@
 # GeekUp_Concert_Ticket_Booking_Platform
 
-Product Backend Technical Test
 
 A comprehensive, full-stack Concert Ticket Booking Platform featuring an interactive seat selection system, payment integration, and a powerful administrative dashboard.
 
-## 🚀 Key Features
+## Key Features
 
 ### User Features (Customer Portal)
 * **Discover Concerts:** Browse upcoming and currently showing concerts.
@@ -19,7 +18,7 @@ A comprehensive, full-stack Concert Ticket Booking Platform featuring an interac
 * **Booking Moderation:** Manually confirm or cancel pending bookings.
 * **Voucher Management:** Create promotional codes with usage limits, minimum order amounts, and expiration statuses.
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Frontend (React)
 * **Framework:** React 18 with TypeScript
@@ -35,7 +34,7 @@ A comprehensive, full-stack Concert Ticket Booking Platform featuring an interac
 * **Object Mapping:** MapStruct & Lombok
 * **Integrations:** Cloudinary (Image Hosting), VNPay (Payment Gateway)
 
-## 🐳 Running with Docker
+## Running with Docker
 
 The entire platform is containerized for seamless deployment.
 
@@ -69,5 +68,5 @@ docker-compose down
 * `/concert-booking-frontend` - React Frontend application source code.
 * `docker-compose.yml` - Orchestrates the MySQL, App (Backend), and Frontend containers.
 
-## 👥 Contributors
-Developed for the GeekUp Product Backend Technical Test.
+## Contributors
+Solisme developed this project for personal learning purpose for Backend Engineering.
