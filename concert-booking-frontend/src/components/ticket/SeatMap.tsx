@@ -161,7 +161,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
       {/* Stage */}
       <div className="mb-8 text-center">
         <div className="inline-block px-16 py-3 rounded-xl bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border border-primary/20 text-sm font-bold text-gray-500 tracking-widest uppercase">
-          🎤 Stage / Screen
+          Stage / Screen
         </div>
       </div>
 
