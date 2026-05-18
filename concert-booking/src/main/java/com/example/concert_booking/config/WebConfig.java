@@ -27,7 +27,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOriginPatterns(
                     "http://localhost:3000",
                     "http://localhost:5173",
-                    "https://concertbookingsystemfrontend-production.up.railway.app"
+                    "https://concertbookingsystemfrontend-production.up.railway.app",
+                    "http://concert-booking-system-frontend.railway.internal:3000"
                 )
                 .allowedMethods("*")
                 .allowedHeaders("*")
