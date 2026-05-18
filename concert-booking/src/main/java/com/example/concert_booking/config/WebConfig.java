@@ -16,4 +16,16 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .maxAge(3600);
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        String[] origins = resolveAllowedOrigins();
+
+        registry.addMapping("/**")
+                .allowedOriginPatterns(origins.length > 0 ? origins : new String[]{"https://concertbookingsystemfrontend-production.up.railway.app"})
+                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3600);
+    }
 } 
