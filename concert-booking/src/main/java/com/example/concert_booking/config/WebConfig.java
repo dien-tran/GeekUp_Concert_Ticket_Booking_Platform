@@ -9,23 +9,15 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "http://localhost:5173")
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-                .allowedHeaders("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With")
-                .allowCredentials(true)
-                .maxAge(3600);
-    }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        String[] origins = resolveAllowedOrigins();
 
         registry.addMapping("/**")
-                .allowedOriginPatterns(origins.length > 0 ? origins : new String[]{"https://concertbookingsystemfrontend-production.up.railway.app"})
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                .allowedOriginPatterns(
+                        "http://localhost:3000",
+                        "http://localhost:5173",
+                        "https://concertbookingsystemfrontend-production.up.railway.app"
+                )
+                .allowedMethods("*")
                 .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3600);
+                .allowCredentials(true);
     }
-} 
+}
